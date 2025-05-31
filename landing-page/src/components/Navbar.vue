@@ -27,7 +27,7 @@ const isActive = (path) => {
   <!-- Mobile Menu Toggle Button -->
   <div class="flex justify-between items-center py-2 px-4 w-[95%] md:w-[60%] mx-auto shadow-sm rounded-sm backdrop-blur-[5px] ">
     <div>
-      <p class="bg-gradient-to-r from-indigo-500 to-indigo-900 font-bold text-2xl text-transparent bg-clip-text hover:cursor-pointer">BeanCart</p>
+      <p class="bg-gradient-to-r from-indigo-500 to-indigo-900 font-bold text-2xl text-transparent bg-clip-text hover:cursor-pointer">FluxStore</p>
     </div>
     <div class="hidden md:block">
   <ul class="flex flex-row gap-2">
@@ -67,7 +67,7 @@ const isActive = (path) => {
       <div class="bg-indigo-100 w-[70%] h-screen absolute right-0 top-0 z-30 pt-16 px-5 overflow-hidden">
         <Transition name="title-animation" appear>
           <div class="absolute top-2">
-            <h2 class="bg-gradient-to-r from-indigo-500 to-indigo-900 font-bold text-2xl text-transparent bg-clip-text">BeanCart</h2>
+            <h2 class="bg-gradient-to-r from-indigo-500 to-indigo-900 font-bold text-2xl text-transparent bg-clip-text">FluxStore</h2>
           </div>
         </Transition>
         <div class="absolute top-2 right-2 hover:cursor-pointer" @click="toggleMenu">

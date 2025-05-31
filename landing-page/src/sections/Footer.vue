@@ -5,7 +5,7 @@
     <div class="bg-gradient-to-t from-indigo-300 to-white">
         <div class="flex flex-col gap-5 px-5 md:px-10 md:py-10">
         <div class="w-fit">
-            <h1 class="bg-gradient-to-r from-indigo-500 to-indigo-900 font-bold text-2xl text-transparent bg-clip-text">BeanCart</h1>
+            <h1 class="bg-gradient-to-r from-indigo-500 to-indigo-900 font-bold text-2xl text-transparent bg-clip-text">FluxStore</h1>
         </div>
         <div class="flex flex-col gap-5 md:flex-row md:gap-20">
         <div>

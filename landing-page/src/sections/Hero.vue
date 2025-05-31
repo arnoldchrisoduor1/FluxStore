@@ -6,11 +6,12 @@ import { Truck, ShieldPlus, Fingerprint, ReceiptEuro} from 'lucide-vue-next';
 
 <template>
     <!-- Mobile View -->
+     <div class="bg-gradient-to-t from-indigo-200 to-white w-full h-[950px] absolute -z-20 md:block"></div>
     <div class="relative overflow-hidden -mt-7 -z-10 md:hidden">
         <div class="flex flex-col mt-20 w-[95%] mx-auto">
-            <p class="font-bold text-xl text-indigo-400 border-2 rounded-full px-4 py-1 w-fit mb-5 tracking-tight">BeanCart</p>
+            <p class="font-bold text-xl text-indigo-400 border-2 rounded-full px-4 py-1 w-fit mb-5 tracking-tight">FluxStore</p>
             <h1 class="font-extrabold text-4xl bg-gradient-to-r from-indigo-500 to-indigo-900 text-transparent bg-clip-text mb-5 tracking-tight">Buy and Sell Online <br/> Fast and Securely.</h1>
-            <p class="font-semibold text-xl text-indigo-900">Commerce modernized and tailored to today's needs.</p>
+            <p class="font-semibold text-xl text-indigo-900">Commerce analytics modernized and tailored to today's needs.</p>
         </div>
       <div class="w-[600px] h-[600px] rounded-full bg-white shadow-[inset_0_0_20px_theme('colors.indigo.300')]  rotate-slow">
         <div class="absolute top-[30px] left-[210px] w-[200px] h-[200px] rounded-full bg-white shadow-[inset_0_0_30px_theme('color.indigo.400')] flex items-center justify-center">
@@ -57,9 +58,11 @@ import { Truck, ShieldPlus, Fingerprint, ReceiptEuro} from 'lucide-vue-next';
       
     </div>
 
+
+    <!-- Desktop view  -->
     <div class="relative overflow-hidden -mt-7 -z-10 hidden md:flex items-center md:justify-around">
         <div class="flex flex-col">
-            <p class="font-bold text-3xl text-indigo-400 border-2 rounded-full px-4 py-2 w-fit mb-5 tracking-tight">BeanCart</p>
+            <p class="font-bold text-3xl text-indigo-400 border-2 rounded-full px-4 py-2 w-fit mb-5 tracking-tight">FluxStore</p>
             <h1 class="font-extrabold text-6xl bg-gradient-to-r from-indigo-500 to-indigo-900 text-transparent bg-clip-text mb-5 tracking-tight">Buy and Sell Online <br/> Fast and Securely.</h1>
             <p class="font-semibold text-xl text-indigo-900">Commerce modernized and tailored to today's needs.</p>
         </div>
