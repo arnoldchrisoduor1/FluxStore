@@ -4,6 +4,7 @@ import Hero from "../src/sections/Hero.vue";
 import Footer from "../src/sections/Footer.vue";
 import Contact from "../src/sections/Contact.vue";
 import WhyUs from "../src/sections/WhyUs.vue";
+import GettingStarted from "./sections/GettingStarted.vue";
 
 </script>
 
@@ -16,6 +17,7 @@ import WhyUs from "../src/sections/WhyUs.vue";
     <main class="max-w-screen-xl mx-auto">
       <Hero />
       <WhyUs />
+      <GettingStarted />
       <Contact />
     </main>
     <Footer />
