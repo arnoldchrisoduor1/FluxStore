@@ -11,9 +11,44 @@
         </div>
 
         <!-- Step by Step Shop Creation. -->
-        <div>
-            <div>
-                
+        <div class="flex flex-col items-center gap-5 mt-5">
+            <div class="w-fit">
+                <p class="text-lg bg-gradient-to-r from-violet-400 to-indigo-800 text-transparent bg-clip-text">Step 1: Register for an Account</p>
+            </div>
+            <div class="border border-violet-500 w-[70%] rounded-lg">
+                <img src="../assets/images/register.png" class="rounded-lg object-cover" />
+            </div>
+        </div>
+        <div class="flex flex-col items-center gap-5 mt-5">
+            <div class="w-fit">
+                <p class="text-lg bg-gradient-to-r from-violet-400 to-indigo-800 text-transparent bg-clip-text">Step 2: Create Shop</p>
+            </div>
+            <div class="border border-violet-500 w-[70%] rounded-lg p-4">
+                <img src="../assets/images/profile-page.png" class="object-cover" />
+            </div>
+        </div>
+        <div class="flex flex-col items-center gap-5 mt-5">
+            <div class="w-fit">
+                <p class="text-lg bg-gradient-to-r from-violet-400 to-indigo-800 text-transparent bg-clip-text">Step 3: Fill Create Shop Form</p>
+            </div>
+            <div class="border border-violet-500 w-[70%] rounded-lg p-4">
+                <img src="../assets/images/create-shop-top.png" class="rounded-lg object-cover" />
+            </div>
+        </div>
+        <div class="flex flex-col items-center gap-5 mt-5">
+            <div class="w-fit">
+                <p class="text-lg bg-gradient-to-r from-violet-400 to-indigo-800 text-transparent bg-clip-text">Step 4: Click Create Shop</p>
+            </div>
+            <div class="border border-violet-500 w-[70%] rounded-lg">
+                <img src="../assets/images/create-shop-bottom.png" class="rounded-lg object-cover" />
+            </div>
+        </div>
+        <div class="flex flex-col items-center gap-5 mt-5">
+            <div class="w-fit">
+                <p class="text-lg bg-gradient-to-r from-violet-400 to-indigo-800 text-transparent bg-clip-text">Step 5: View Shop</p>
+            </div>
+            <div class="border border-violet-500 w-[70%] rounded-lg p-4">
+                <img src="../assets/images/shop.png" class="rounded-lg object-cover" />
             </div>
         </div>
     </div>
