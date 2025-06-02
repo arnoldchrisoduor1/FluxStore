@@ -5,6 +5,7 @@ import Footer from "../src/sections/Footer.vue";
 import Contact from "../src/sections/Contact.vue";
 import WhyUs from "../src/sections/WhyUs.vue";
 import GettingStarted from "./sections/GettingStarted.vue";
+import Faq from "./sections/Faq.vue";
 
 </script>
 
@@ -18,6 +19,7 @@ import GettingStarted from "./sections/GettingStarted.vue";
       <Hero />
       <WhyUs />
       <GettingStarted />
+      <Faq />
       <Contact />
     </main>
     <Footer />
