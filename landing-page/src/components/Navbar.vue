@@ -25,7 +25,7 @@ const isActive = (path) => {
 
 <template>
   <!-- Mobile Menu Toggle Button -->
-  <div class="flex justify-between items-center py-2 px-4 w-[95%] md:w-[60%] mx-auto shadow-sm rounded-sm backdrop-blur-[5px] ">
+  <div class="flex justify-between items-center py-2 px-4 w-[95%] md:w-[60%] mx-auto shadow-sm rounded-sm backdrop-blur-[10px] ">
     <div>
       <p class="bg-gradient-to-r from-indigo-500 to-indigo-900 font-bold text-2xl text-transparent bg-clip-text hover:cursor-pointer">FluxStore</p>
     </div>
@@ -61,10 +61,10 @@ const isActive = (path) => {
   </Transition> -->
   <!-- Mobile Navigation Menu -->
   <Transition name="sidebar">
-    <div v-if="isMenuOpen" class="md:hidden fixed inset-0 z-30">
+    <div v-if="isMenuOpen" class="md:hidden fixed inset-0 z-50">
 
       <!-- Sidebar container -->
-      <div class="bg-indigo-100 w-[70%] h-screen absolute right-0 top-0 z-30 pt-16 px-5 overflow-hidden">
+      <div class="bg-indigo-100 w-[70%] h-screen absolute right-0 top-0 z-50 pt-16 px-5 overflow-hidden">
         <Transition name="title-animation" appear>
           <div class="absolute top-2">
             <h2 class="bg-gradient-to-r from-indigo-500 to-indigo-900 font-bold text-2xl text-transparent bg-clip-text">FluxStore</h2>
