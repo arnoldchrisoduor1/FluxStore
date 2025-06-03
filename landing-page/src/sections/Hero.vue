@@ -12,10 +12,12 @@ import { Truck, ShieldPlus, Fingerprint, ReceiptEuro } from 'lucide-vue-next';
       <!-- Left Column: Text + CTA -->
       <div class="text-center md:text-left">
         <!-- Tagline -->
+         <Transition name="fadein" appear>
         <div class="inline-flex items-center gap-2 bg-indigo-100/80 px-4 py-2 rounded-full mb-6">
           <span class="text-indigo-700 font-semibold">🚀 FluxStore</span>
           <span class="text-indigo-500">| Ecommerce Simplified</span>
         </div>
+        </Transition>
 
         <!-- Headline -->
         <Transition name="fadein" appear>
@@ -27,7 +29,7 @@ import { Truck, ShieldPlus, Fingerprint, ReceiptEuro } from 'lucide-vue-next';
         </Transition>
 
         <!-- Subheadline -->
-        <Transition name="fadein" appear>
+        <Transition name="fadeinlag" appear>
           <p class="text-lg md:text-xl text-indigo-800/90 mb-8 max-w-lg mx-auto md:mx-0">
             The all-in-one platform for sellers to grow their business and buyers to shop securely.
           </p>
@@ -48,6 +50,7 @@ import { Truck, ShieldPlus, Fingerprint, ReceiptEuro } from 'lucide-vue-next';
         </Transition>
 
         <!-- Trust Badges -->
+         <Transition name="fadeinlag" appear>
         <div class="flex flex-wrap justify-center md:justify-start items-center gap-4 text-sm text-indigo-600">
           <div class="flex items-center gap-2">
             <Fingerprint class="w-4 h-4 text-violet-600" />
@@ -58,9 +61,11 @@ import { Truck, ShieldPlus, Fingerprint, ReceiptEuro } from 'lucide-vue-next';
             <span>Fast Delivery</span>
           </div>
         </div>
+        </Transition>
       </div>
 
       <!-- Right Column: Spinning Orb -->
+       <Transition name="sidefadein" appear>
       <div class="relative w-full h-[400px] md:h-[500px] flex justify-center items-center">
         <div
           class="w-[350px] h-[350px] md:w-[450px] md:h-[450px] rounded-full bg-white shadow-[inset_0_0_30px_theme('colors.indigo.200')] rotate-slow">
@@ -95,6 +100,7 @@ import { Truck, ShieldPlus, Fingerprint, ReceiptEuro } from 'lucide-vue-next';
           </div>
         </div>
       </div>
+      </Transition>
     </div>
   </div>
 </template>
@@ -137,6 +143,18 @@ import { Truck, ShieldPlus, Fingerprint, ReceiptEuro } from 'lucide-vue-next';
 
 .fadein-enter-from,
 .fadein-leave-to {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.fadeinlag-enter-active,
+.fadeinlag-leave-active {
+  transition: opacity 1.5s ease;
+  transition: transform 1.5s ease;
+}
+
+.fadeinlag-enter-from,
+.fadeinlag-leave-to {
   opacity: 0;
   transform: translateY(50px);
 }

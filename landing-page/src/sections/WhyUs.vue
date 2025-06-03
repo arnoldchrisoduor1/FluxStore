@@ -3,6 +3,7 @@ import { PackageCheck, Store, ShoppingCart, Wallet, ShieldCheck, Zap, Globe, Use
 import StatBox from '../components/StatBox.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
+
 const statBoxes = ref([
   { title: "Orders Fulfilled", value: "1200+", icon: PackageCheck, isVisible: false },
   { title: "Active Shops", value: "220+", icon: Store, isVisible: false },
@@ -63,16 +64,23 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-indigo-50/50 w-full">
+  <section id="about">
+  <div class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-indigo-50/50 w-full" ref="target">
     <div class="max-w-7xl mx-auto">
       <div class="text-center flex flex-col justify-center items-center gap-5 mb-12">
+        <Transition name="fadein" appear>
         <div class="border border-indigo-200 px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-100 to-violet-100 shadow-sm">
           <p class="text-indigo-700 font-medium tracking-wide">Why Choose Us</p>
         </div>
+      </Transition>
+      <Transition name="fadein" appear>
         <h2 class="text-4xl font-bold text-indigo-900">What Sets Us Apart?</h2>
+      </Transition>
+      <Transition name="fadeinlag" appear>
         <p class="text-violet-700 max-w-2xl text-lg">
           We're not just another marketplace - we're a community built on trust, innovation, and exceptional service.
         </p>
+      </Transition>
       </div>
       
       <!-- Stats Section -->
@@ -96,8 +104,11 @@ onUnmounted(() => {
       
       <!-- Features Section -->
       <div class="mt-16">
+        <Transition name="fadein" appear>
         <h3 class="text-2xl font-semibold text-indigo-800 text-center mb-12">Our Competitive Advantages</h3>
+        </Transition>
         
+        <Transition name="fadeinlag" appear>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div 
             v-for="(feature, index) in features" 
@@ -112,9 +123,11 @@ onUnmounted(() => {
             <p class="text-indigo-700/90">{{ feature.description }}</p>
           </div>
         </div>
+        </Transition>
       </div>
       
       <!-- Testimonial Section -->
+       <Transition name="sidefadein" appear>
       <div class="mt-24 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl p-8 sm:p-12 text-white">
         <div class="max-w-4xl mx-auto">
           <div class="flex items-center gap-3 mb-4">
@@ -136,8 +149,10 @@ onUnmounted(() => {
           </div>
         </div>
       </div>
+      </Transition>
     </div>
   </div>
+  </section>
 </template>
 
 <style>
@@ -153,6 +168,41 @@ onUnmounted(() => {
 
 .fade-enter-active {
   transition: all 0.5s ease;
+}
+
+.card-enter-from,
+.card-leave-to {
+  opacity: 0;
+  transition: translateX(40px);
+}
+
+.card-enter-active,
+.card-leave-active {
+  transition: all 1s ease;
+}
+
+.fadeinlag-enter-active,
+.fadeinlag-leave-active {
+  transition: opacity 1.5s ease;
+  transition: transform 1.5s ease;
+}
+
+.fadeinlag-enter-from,
+.fadeinlag-leave-to {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.sidefadein-enter-active,
+.sidefadein-leave-active {
+  transition: opacity 1.5s ease;
+  transition: transform 1.5s ease;
+}
+
+.sidefadein-enter-from,
+.sidefadein-leave-to {
+  opacity: 0;
+  transform: translateX(50px);
 }
 
 .statbox-container {
