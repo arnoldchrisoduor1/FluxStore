@@ -157,7 +157,7 @@ const setMemberRef = (el, index) => {
           <div class="bg-gradient-to-t from-black/80 via-black/30 to-transparent absolute h-full w-full z-10 rounded-xl"></div>
           <img src="../assets/images/ceo.jpg" class="absolute h-full w-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" />
           <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
-            <h2 class="text-white text-2xl font-bold mb-1">Sarah Johnson</h2>
+            <h2 class="text-white text-2xl font-bold mb-1">Joel Johnson</h2>
             <p class="text-violet-200 font-medium">Chief Operations Officer</p>
             <p class="text-white/80 mt-2 text-sm">Operations expert streamlining processes for maximum efficiency and productivity.</p>
             <div class="flex gap-3 mt-3">
@@ -184,7 +184,7 @@ const setMemberRef = (el, index) => {
           <div class="bg-gradient-to-t from-black/80 via-black/30 to-transparent absolute h-full w-full z-10 rounded-xl"></div>
           <img src="../assets/images/marketing.jpg" class="absolute h-full w-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500" />
           <div class="absolute bottom-0 left-0 p-6 z-20 w-full">
-            <h2 class="text-white text-2xl font-bold mb-1">Michael Chen</h2>
+            <h2 class="text-white text-2xl font-bold mb-1">Kylie Hendris</h2>
             <p class="text-violet-200 font-medium">Marketing Director</p>
             <p class="text-white/80 mt-2 text-sm">Creative strategist building powerful brands and engaging customer experiences.</p>
             <div class="flex gap-3 mt-3">
