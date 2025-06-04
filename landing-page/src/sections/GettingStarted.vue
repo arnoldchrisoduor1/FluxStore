@@ -7,7 +7,7 @@ import {
   Eye,
   Check
 } from 'lucide-vue-next';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 
 // Import your images
 import registerImg from '../assets/images/register.png';
@@ -51,68 +51,158 @@ const steps = ref([
 
 const activeStep = ref(0);
 
+// Visibility refs and states
+const sectionRef = ref(null);
+const headerBadgeRef = ref(null);
+const headerTitleRef = ref(null);
+const headerTextRef = ref(null);
+const stepContentRef = ref(null);
+const stepImageRef = ref(null);
+const ctaRef = ref(null);
+
+const headerBadgeVisible = ref(false);
+const headerTitleVisible = ref(false);
+const headerTextVisible = ref(false);
+const stepContentVisible = ref(false);
+const stepImageVisible = ref(false);
+const ctaVisible = ref(false);
+
+// Intersection Observer
+let observer = null;
+
+const createObserver = () => {
+  observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === headerBadgeRef.value) {
+          headerBadgeVisible.value = entry.isIntersecting;
+        }
+        else if (entry.target === headerTitleRef.value) {
+          headerTitleVisible.value = entry.isIntersecting;
+        }
+        else if (entry.target === headerTextRef.value) {
+          headerTextVisible.value = entry.isIntersecting;
+        }
+        else if (entry.target === stepContentRef.value) {
+          stepContentVisible.value = entry.isIntersecting;
+        }
+        else if (entry.target === stepImageRef.value) {
+          stepImageVisible.value = entry.isIntersecting;
+        }
+        else if (entry.target === ctaRef.value) {
+          ctaVisible.value = entry.isIntersecting;
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '50px'
+    }
+  );
+};
+
 onMounted(() => {
+  createObserver();
+  
+  // Observe all elements
+  const elements = [
+    headerBadgeRef.value,
+    headerTitleRef.value,
+    headerTextRef.value,
+    stepContentRef.value,
+    stepImageRef.value,
+    ctaRef.value
+  ].filter(el => el);
+  
+  elements.forEach(el => observer.observe(el));
+
   // Auto-advance steps for demo purposes (remove if not needed)
   const interval = setInterval(() => {
     activeStep.value = (activeStep.value + 1) % steps.value.length;
   }, 4000);
   return () => clearInterval(interval);
 });
+
+onUnmounted(() => {
+  if (observer) observer.disconnect();
+});
 </script>
 
 <template>
-  <section id="features">
-  <div class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-indigo-50/30">
-    <div class="max-w-6xl mx-auto">
-      <Transition name="fade-slide" appear>
+  <section id="features" ref="sectionRef">
+    <div class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-indigo-50/30">
+      <div class="max-w-6xl mx-auto">
         <div class="text-center flex flex-col justify-center items-center gap-5 mb-12">
           <div
-            class="border border-indigo-200 px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-100 to-violet-100 shadow-sm">
+            ref="headerBadgeRef"
+            :class="[
+              'border border-indigo-200 px-4 py-1.5 rounded-full bg-gradient-to-r from-indigo-100 to-violet-100 shadow-sm transition-all duration-1000 ease-out',
+              headerBadgeVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            ]"
+          >
             <p class="text-indigo-700 font-medium">Getting Started</p>
           </div>
-          <h2 class="text-4xl font-bold text-indigo-900">How to Set Up Your Shop</h2>
-          <p class="text-violet-700 max-w-2xl text-lg">
+          <h2 
+            ref="headerTitleRef"
+            :class="[
+              'text-4xl font-bold text-indigo-900 transition-all duration-1000 ease-out delay-200',
+              headerTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            ]"
+          >
+            How to Set Up Your Shop
+          </h2>
+          <p 
+            ref="headerTextRef"
+            :class="[
+              'text-violet-700 max-w-2xl text-lg transition-all duration-1000 ease-out delay-400',
+              headerTextVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            ]"
+          >
             Launch your online store in just 5 simple steps. Our platform makes it effortless to get started.
           </p>
         </div>
-      </Transition>
 
-      <!-- Step Navigation -->
-      <div class="flex justify-center mb-12">
-        <div class="relative w-full max-w-4xl">
-          <!-- Progress bar -->
-          <div class="absolute top-1/2 left-0 right-0 h-1 bg-indigo-100 transform -translate-y-1/2 z-0"></div>
-          <div
-            class="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-violet-500 to-indigo-600 transform -translate-y-1/2 z-10 transition-all duration-500 ease-in-out"
-            :style="{ width: `${(activeStep / (steps.length - 1)) * 100}%` }"></div>
+        <!-- Step Navigation -->
+        <div class="flex justify-center mb-12">
+          <div class="relative w-full max-w-4xl">
+            <!-- Progress bar -->
+            <div class="absolute top-1/2 left-0 right-0 h-1 bg-indigo-100 transform -translate-y-1/2 z-0"></div>
+            <div
+              class="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-violet-500 to-indigo-600 transform -translate-y-1/2 z-10 transition-all duration-500 ease-in-out"
+              :style="{ width: `${(activeStep / (steps.length - 1)) * 100}%` }"></div>
 
-          <!-- Step indicators -->
-          <div class="relative flex justify-between z-20">
-            <button v-for="(step, index) in steps" :key="index" @click="activeStep = index"
-              class="flex flex-col items-center group">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-all duration-300"
-                :class="{
-                  'bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-lg shadow-violet-200': activeStep >= index,
-                  'bg-white border-2 border-indigo-200 text-indigo-300 group-hover:border-indigo-300 group-hover:text-indigo-400': activeStep < index
+            <!-- Step indicators -->
+            <div class="relative flex justify-between z-20">
+              <button v-for="(step, index) in steps" :key="index" @click="activeStep = index"
+                class="flex flex-col items-center group">
+                <div class="w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-all duration-300"
+                  :class="{
+                    'bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-lg shadow-violet-200': activeStep >= index,
+                    'bg-white border-2 border-indigo-200 text-indigo-300 group-hover:border-indigo-300 group-hover:text-indigo-400': activeStep < index
+                  }">
+                  <component :is="step.icon" class="w-5 h-5" />
+                </div>
+                <span class="text-sm font-medium transition-colors" :class="{
+                  'text-indigo-800': activeStep >= index,
+                  'text-indigo-400': activeStep < index
                 }">
-                <component :is="step.icon" class="w-5 h-5" />
-              </div>
-              <span class="text-sm font-medium transition-colors" :class="{
-                'text-indigo-800': activeStep >= index,
-                'text-indigo-400': activeStep < index
-              }">
-                Step {{ index + 1 }}
-              </span>
-            </button>
+                  Step {{ index + 1 }}
+                </span>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Step Content -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <!-- Text Content -->
-        <Transition name="fade-slide" mode="out-in" appear>
-          <div key="text-content" class="space-y-6">
+        <!-- Step Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <!-- Text Content -->
+          <div 
+            ref="stepContentRef"
+            :class="[
+              'space-y-6 transition-all duration-1000 ease-out',
+              stepContentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            ]"
+          >
             <div class="flex items-center gap-3">
               <div
                 class="bg-gradient-to-br from-violet-500 to-indigo-600 text-white text-lg font-bold w-10 h-10 rounded-full flex items-center justify-center">
@@ -160,11 +250,15 @@ onMounted(() => {
               </button>
             </div>
           </div>
-        </Transition>
 
-        <!-- Image Preview -->
-        <Transition name="fade-slide-right" mode="out-in" appear>
-          <div key="image-content" class="relative">
+          <!-- Image Preview -->
+          <div 
+            ref="stepImageRef"
+            :class="[
+              'relative transition-all duration-1000 ease-out delay-200',
+              stepImageVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
+            ]"
+          >
             <div
               class="border-2 border-violet-200 rounded-xl shadow-xl overflow-hidden bg-white h-[400px] w-full flex items-center justify-center">
               <img :src="steps[activeStep].image"
@@ -176,12 +270,16 @@ onMounted(() => {
               Step {{ activeStep + 1 }} of {{ steps.length }}
             </div>
           </div>
-        </Transition>
-      </div>
+        </div>
 
-      <!-- Quick Start CTA -->
-      <Transition name="fade-slide" appear>
-        <div class="mt-20 text-center">
+        <!-- Quick Start CTA -->
+        <div 
+          ref="ctaRef"
+          :class="[
+            'mt-20 text-center transition-all duration-1000 ease-out',
+            ctaVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+          ]"
+        >
           <h3 class="text-2xl font-bold text-indigo-900 mb-4">Ready to Get Started?</h3>
           <p class="text-indigo-700 max-w-2xl mx-auto mb-6">
             Join thousands of sellers who've transformed their businesses with our platform.
@@ -191,45 +289,12 @@ onMounted(() => {
             Create Your Free Account Now
           </button>
         </div>
-      </Transition>
+      </div>
     </div>
-  </div>
   </section>
 </template>
 
 <style>
-/* Fade and slide animation for text content */
-.fade-slide-enter-active,
-.fade-slide-leave-active {
-  transition: all 0.5s ease;
-}
-
-.fade-slide-enter-from {
-  opacity: 0;
-  transform: translateY(-20px);
-}
-
-.fade-slide-leave-to {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-/* Fade and slide from right for image content */
-.fade-slide-right-enter-active,
-.fade-slide-right-leave-active {
-  transition: all 0.5s ease;
-}
-
-.fade-slide-right-enter-from {
-  opacity: 0;
-  transform: translateX(20px);
-}
-
-.fade-slide-right-leave-to {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-
 /* Consistent image container sizing */
 .image-container {
   height: 400px;
