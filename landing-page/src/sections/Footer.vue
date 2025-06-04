@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import { ChevronRight, Mail, Twitter, Facebook, Linkedin, Github } from 'lucide-vue-next';
+import { ChevronRight, Mail, Twitter, Facebook, Linkedin, Github, Heart } from 'lucide-vue-next';
 
 const links = {
   about: [
@@ -308,6 +308,11 @@ onUnmounted(() => {
         >
           &copy; 2025 FluxStore. All rights reserved.
         </p>
+        <div class="flex gap-2 mt-3 items-center">
+          <p class="text-indigo-300">Crafted with </p>
+          <Heart class="h-5 w-5 text-red-500"/>
+          <p class="text-indigo-300">by Arnold Oduor</p>
+        </div>
         <div class="flex space-x-6 mt-4 md:mt-0">
           <a 
             v-for="(link, index) in ['Privacy Policy', 'Terms of Service', 'Cookies']" 
