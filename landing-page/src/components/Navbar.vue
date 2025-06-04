@@ -1,215 +1,189 @@
 <script setup>
-import { ref, computed } from "vue";
-import { useRoute } from "vue-router";
-import { AlignJustify, X, Bell } from "lucide-vue-next";
+import { ref } from "vue";
+import { AlignJustify, X, Bell, Home, Info, Zap, Users, Mail, ChevronRight } from "lucide-vue-next";
 
 const isMenuOpen = ref(false);
-const route = useRoute();
+const activeSection = ref('home');
 
 const navItems = [
-  { id: "home", name: "Home", path: "/" },
-  { id: "about", name: "About", path: "/about" },
-  { id: "features", name: "Features", path: "/features" },
-  { id: "team", name: "Team", path: "/team" },
-  { id: "contacts", name: "Contacts", path: "/contacts" },
+  { id: "home", name: "Home", icon: Home, path: "#home" },
+  { id: "about", name: "About", icon: Info, path: "#about" },
+  { id: "features", name: "Features", icon: Zap, path: "#features" },
+  { id: "team", name: "Team", icon: Users, path: "#team" },
+  { id: "contacts", name: "Contacts", icon: Mail, path: "#contacts" },
 ];
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
-const isActive = (path) => {
-  return route.path === path;
+const setActiveSection = (section) => {
+  activeSection.value = section;
 };
 </script>
 
 <template>
-  <!-- Mobile Menu Toggle Button -->
-  <div
-    class="flex justify-between items-center py-2 px-4 w-[95%] md:w-[60%] mx-auto shadow-sm rounded-sm backdrop-blur-[10px]"
-  >
-    <div>
-      <p
-        class="bg-gradient-to-r from-indigo-500 to-indigo-900 font-bold text-2xl text-transparent bg-clip-text hover:cursor-pointer"
-      >
-        FluxStore
-      </p>
-    </div>
-    <div class="hidden md:block">
-      <ul class="flex flex-row gap-2">
-        <li v-for="item in navItems" :key="item.id">
-          <a :href="`#${item.id}`" class="px-2 py-1 hover:underline">
-            {{ item.name }}
-          </a>
-        </li>
-      </ul>
-    </div>
-
-    <div class="flex gap-5 items-center">
-      <div class="hover:cursor-pointer">
-        <Bell class="text-indigo-800" />
-      </div>
-      <button @click="toggleMenu" class="md:hidden z-40 hover:cursor-pointer">
-        <AlignJustify v-if="!isMenuOpen" class="text-indigo-900" />
-      </button>
-    </div>
-  </div>
-
-  <!-- Black Overlay -->
-  <!-- <Transition name="overlay">
-    <div class="absolute bg-black/50 inset-0 z-30" @click="toggleMenu" v-if="isMenuOpen"></div>
-  </Transition> -->
-  <!-- Mobile Navigation Menu -->
-  <Transition name="sidebar">
-    <div v-if="isMenuOpen" class="md:hidden fixed inset-0 z-50">
-      <!-- Sidebar container -->
-      <div
-        class="bg-indigo-100 w-[70%] h-screen absolute right-0 top-0 z-50 pt-16 px-5 overflow-hidden"
-      >
-        <Transition name="title-animation" appear>
-          <div class="absolute top-2">
-            <h2
-              class="bg-gradient-to-r from-indigo-500 to-indigo-900 font-bold text-2xl text-transparent bg-clip-text"
-            >
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md bg-white/80 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <div class="flex-shrink-0">
+          <a href="#home" class="flex items-center">
+            <span class="bg-gradient-to-r from-indigo-600 to-violet-600 font-bold text-2xl text-transparent bg-clip-text">
               FluxStore
-            </h2>
-          </div>
-        </Transition>
-        <div
-          class="absolute top-2 right-2 hover:cursor-pointer"
-          @click="toggleMenu"
-        >
-          <X class="w-8 h-7 text-indigo-300" />
+            </span>
+          </a>
         </div>
 
-        <div
-          class="h-[250px] w-[250px] bg-indigo-200 rounded-full absolute -top-[125px] -left-[150px] -z-10"
-        ></div>
-
-        <TransitionGroup name="list" tag="ul" class="w-full" appear>
-          <li
-            v-for="(item, index) in navItems"
-            :key="item.id"
-            :style="{ '--stagger-delay': `${index * 0.1}s` }"
-          >
-            <router-link
-              :to="item.path"
-              class="flex px-4 py-3 w-full mt-5 rounded-sm shadow-sm font-semibold text-lg text-gray-500"
-              :class="
-                isActive(item.path)
-                  ? 'bg-gradient-to-r from-indigo-500 to-indigo-900 text-white'
-                  : 'bg-gradient-to-r from-indigo-300/20 to-indigo-100/20'
-              "
-              @click="toggleMenu"
+        <!-- Desktop Navigation -->
+        <div class="hidden md:block">
+          <div class="ml-10 flex items-center space-x-6">
+            <a
+              v-for="item in navItems"
+              :key="item.id"
+              :href="item.path"
+              @click="setActiveSection(item.id)"
+              class="relative px-3 py-2 text-sm font-medium transition-all duration-300 group"
+              :class="activeSection === item.id ? 'text-indigo-600' : 'text-gray-600 hover:text-violet-600'"
             >
               {{ item.name }}
-            </router-link>
-          </li>
-        </TransitionGroup>
+              <span 
+                v-if="activeSection === item.id"
+                class="absolute inset-x-1 -bottom-1 h-0.5 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full"
+              ></span>
+              <span 
+                v-else
+                class="absolute inset-x-1 -bottom-1 h-0.5 bg-gradient-to-r from-indigo-500/0 to-violet-500/0 rounded-full group-hover:from-indigo-500/50 group-hover:to-violet-500/50 transition-all duration-300"
+              ></span>
+            </a>
+          </div>
+        </div>
 
-        <Transition name="slide-fade" appear>
-          <button
-            class="absolute bottom-24 px-4 py-3 bg-gradient-to-r from-indigo-500 to-indigo-900 rounded-sm w-[80%] text-center shadow-md"
-          >
-            <p class="font-semibold text-xl text-white">Get Started</p>
+        <!-- Right side icons -->
+        <div class="flex items-center gap-4">
+          <button class="p-1 rounded-full text-gray-600 hover:text-violet-600 hover:bg-violet-50 transition-colors duration-200 hover:cursor-pointer">
+            <Bell class="w-5 h-5" />
           </button>
-        </Transition>
+          
+          <!-- Mobile menu button -->
+          <button 
+            @click="toggleMenu"
+            class="md:hidden p-1 rounded-full text-gray-600 hover:text-violet-600 hover:bg-violet-50 transition-colors duration-200 focus:outline-none hover:cursor-pointer"
+          >
+            <AlignJustify v-if="!isMenuOpen" class="w-6 h-6" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-        <div
-          class="absolute h-[700px] w-[700px] bg-radial-[at_25%_25%] from indigo-200 to-indigo-400 to-70% rounded-full -z-10 -bottom-[200px] -left-[50px]"
-        ></div>
-        <div
-          class="bg-indigo-300 h-[100px] w-[100px] rounded-full absolute bottom-[200px]"
-        ></div>
-        <div
-          class="bg-indigo-300 h-[50px] w-[50px] rounded-full absolute bottom-[200px] right-[50px]"
-        ></div>
-        <div
-          class="bg-indigo-300 h-[40px] w-[40px] rounded-full absolute bottom-[300px] right-[25px]"
-        ></div>
+  <!-- Mobile Sidebar -->
+  <Transition name="sidebar">
+    <div v-if="isMenuOpen" class="md:hidden">
+      <!-- Overlay -->
+      <div 
+        class="fixed inset-0 bg-black/50 z-40 transition-opacity duration-300"
+        @click="toggleMenu"
+      ></div>
+      
+      <!-- Sidebar Content -->
+      <div class="fixed inset-y-0 right-0 w-80 max-w-full z-50">
+        <div class="h-full bg-gradient-to-b from-indigo-50 to-violet-50 shadow-xl overflow-y-auto">
+          <div class="flex items-center justify-between p-4 border-b border-indigo-100/50">
+            <a href="#home" class="flex items-center" @click="toggleMenu">
+              <span class="bg-gradient-to-r from-indigo-600 to-violet-600 font-bold text-2xl text-transparent bg-clip-text">
+                FluxStore
+              </span>
+            </a>
+            <button 
+              @click="toggleMenu"
+              class="p-1 rounded-full text-gray-500 hover:text-violet-600 hover:bg-violet-100 transition-colors duration-200 z-20 hover:cursor-pointer"
+            >
+              <X class="w-6 h-6" />
+            </button>
+          </div>
+          
+          <nav class="px-4 py-6">
+            <ul class="space-y-2">
+              <li v-for="item in navItems" :key="item.id">
+                <a
+                  :href="item.path"
+                  @click="() => { setActiveSection(item.id); toggleMenu(); }"
+                  class="group flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200"
+                  :class="activeSection === item.id 
+                    ? 'bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border-l-4 border-indigo-500 text-indigo-600' 
+                    : 'text-gray-600 hover:bg-violet-100/50 hover:text-violet-600'"
+                >
+                  <div class="flex items-center">
+                    <component 
+                      :is="item.icon" 
+                      class="w-5 h-5 mr-3"
+                      :class="activeSection === item.id ? 'text-indigo-500' : 'text-gray-400 group-hover:text-violet-500'"
+                    />
+                    <span class="font-medium">{{ item.name }}</span>
+                  </div>
+                  <ChevronRight class="w-4 h-4 text-gray-400 group-hover:text-violet-500" />
+                </a>
+              </li>
+            </ul>
+            
+            <div class="mt-8 px-4">
+              <button 
+                class="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 hover:from-indigo-500 hover:to-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+                @click="toggleMenu"
+              >
+                Get Started
+              </button>
+            </div>
+          </nav>
+          
+          <!-- Decorative elements -->
+          <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-indigo-100/80 to-transparent pointer-events-none"></div>
+          <div class="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-violet-200/30 blur-xl"></div>
+          <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-indigo-200/30 blur-xl"></div>
+        </div>
       </div>
     </div>
   </Transition>
 
-  <!-- Content Area -->
-  <router-view />
+  <!-- Main Content -->
+  <main class="pt-16">
+    <!-- Your page sections with #home, #about, etc. will go here -->
+  </main>
 </template>
 
 <style>
-/* Sidebar Animation */
+/* Sidebar transition */
 .sidebar-enter-active,
 .sidebar-leave-active {
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: opacity 0.3s ease;
 }
 
-.sidebar-enter-from {
-  transform: translateX(100%);
-  opacity: 0;
-}
-
-.sidebar-enter-to {
-  transform: translateX(0%);
-  opacity: 1;
-}
-
-.sidebar-leave-from {
-  transform: translateX(0%);
-  opacity: 1;
-}
-
+.sidebar-enter-from,
 .sidebar-leave-to {
+  opacity: 0;
+}
+
+.sidebar-enter-active .fixed.right-0,
+.sidebar-leave-active .fixed.right-0 {
+  transition: transform 0.3s ease;
+}
+
+.sidebar-enter-from .fixed.right-0 {
   transform: translateX(100%);
-  opacity: 0;
 }
 
-/* Overlay Fade Animation */
-.overlay-enter-active,
-.overlay-leave-active {
-  transition: opacity 0.1s ease;
+.sidebar-enter-to .fixed.right-0 {
+  transform: translateX(0);
 }
 
-.overlay-enter-from,
-.overlay-leave-to {
-  opacity: 0;
+.sidebar-leave-to .fixed.right-0 {
+  transform: translateX(100%);
 }
 
-.overlay-enter-to,
-.overlay-leave-from {
-  opacity: 0.5;
-}
-
-.list-enter-active {
-  transition: all 0.5s ease;
-  transition-delay: var(--stagger-delay, 0s);
-}
-
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-/* Title animations */
-.title-animation-enter-active,
-.title-animation-leave-active {
-  transition: all 0.4s ease-in;
-}
-
-.title-animation-enter-from,
-.title-animation-leave-to {
-  opacity: 0;
-  transform: translateX(20px);
-}
-
-/* Button animations */
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all 0.4s ease-in;
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  opacity: 0;
-  transform: translateY(20px);
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 </style>

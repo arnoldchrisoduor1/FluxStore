@@ -79,6 +79,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <section id="home">
   <!-- Background Gradient -->
   <div class="bg-gradient-to-b from-white via-indigo-50 to-white h-[800px] md:h-[700px] absolute -z-20"></div>
 
@@ -203,6 +204,7 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
+  </section>
 </template>
 
 <style>

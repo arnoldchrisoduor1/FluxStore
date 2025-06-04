@@ -95,6 +95,7 @@ onUnmounted(() => {
 
 <template>
   <!-- Enhanced Contact/CTA section -->
+  <section id="contacts">
   <div class="my-28 w-[90%] max-w-6xl mx-auto">
     <div 
       ref="ctaContainerRef"
@@ -209,6 +210,7 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
+  </section>
 </template>
 
 <style>
